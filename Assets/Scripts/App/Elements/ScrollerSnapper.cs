@@ -7,6 +7,8 @@ namespace Visuals
 {
     public class ScollerSnapper : MonoBehaviour
     {
+        private RectTransform baseCenter;
+
         public RectTransform content;
         public RectTransform viewport;
         public RectTransform center;
@@ -30,9 +32,19 @@ namespace Visuals
         public Func<Transform, (int index, float distance)> compare;
         private float height;
 
+        private void Awake()
+        {
+            baseCenter = center;
+        }
+
         private void LateUpdate()
         {
             if (snapped) return;
+            if (!baseCenter)
+            {
+                baseCenter = center;
+            }
+
             velocity = rect.velocity;
 
             noScrollTime += Time.deltaTime;
@@ -68,6 +80,7 @@ namespace Visuals
                 {
                     snapped = true;
                     snapping = false;
+                    center = baseCenter;
                     return;
                 }
             }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 using Visuals.Module;
 
@@ -6,12 +7,20 @@ namespace Core.Notes
 {
     public class NoteItem : MonoBehaviour
     {
-        public InsertableText header;
+        public Image icon;
+        public InsertableText content;
         public InsertableText date;
+        private int id;
 
-        public void Set(string title, string text)
+        public void Set(string text, int id)
         {
-            header.text = title;
+            this.id = id;
+            content.text = text;
+        }
+
+        public void Open()
+        {
+            NoteManager.Instance.OpenSelectedNote(id);
         }
     }
 }

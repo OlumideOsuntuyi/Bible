@@ -13,6 +13,8 @@ namespace Visuals.Module
     {
         public TMP_Text _text;
         public Vector2 padding;
+        public Vector2 min;
+        public Vector2 max;
         public float minLength;
         public float fontRatio;
         public Mode mode;
@@ -65,23 +67,38 @@ namespace Visuals.Module
             // Get preferred width
             var w = _text.GetPreferredValues();
             var s = rect.sizeDelta;
-            rect.sizeDelta = new Vector2()
+            var sz = new Vector2()
             {
                 x = mode is Mode.All or Mode.Width ? w.x : s.x,
                 y = mode is Mode.All or Mode.Height ? w.y : s.y
-            } + padding;
+            };
 
-            transform?.parent.SendMessageUpwards(nameof(OnTransformChildrenChanged), SendMessageOptions.DontRequireReceiver);
+            if(min.x != 0 || min.y != 0)
+            {
+                sz = Vector2.Max(min, sz);
+            }
 
-            _text.ForceMeshUpdate();
+            if(max.x != 0 || max.y != 0)
+            {
+                sz = Vector2.Min(max, sz);
+            }
+
+            sz += padding;
+
+            rect.sizeDelta = sz;
+            // _text.ForceMeshUpdate();
+            if (rect.parent)
+            {
+                rect.parent.SendMessageUpwards(nameof(OnTransformChildrenChanged), SendMessageOptions.DontRequireReceiver);
+            }
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
             Resize();
         }
 
-        private void OnTransformChildrenChanged()
+        protected void OnTransformChildrenChanged()
         {
         }
     }

@@ -14,18 +14,6 @@ namespace Core
         public InsertableText bookLabel;
         public InsertableText module;
 
-        public int chapter
-        {
-            get
-            {
-                return current.chapter;
-            }
-            set
-            {
-                current.chapter = value;
-            }
-        }
-
         public int book
         {
             get
@@ -38,17 +26,58 @@ namespace Core
             }
         }
 
+        public int chapter
+        {
+            get
+            {
+                return current.chapter;
+            }
+            set
+            {
+                current.chapter = value;
+            }
+        }
+
+        public int verse
+        {
+            get
+            {
+                return current.verse;
+            }
+            set
+            {
+                current.verse = value;
+            }
+        }
+
         public ChapterLoader current
         {
             get { return loaders[swiper.active]; }
+        }
+
+        private void OnEnable()
+        {
+            book = PlayerPrefs.GetInt("currentBook", 1);
+            chapter = PlayerPrefs.GetInt("currentChapter", 1);
+            verse = PlayerPrefs.GetInt("currentVerse", 1);
+        }
+
+        private void OnDestroy()
+        {
+            PlayerPrefs.SetInt("currentBook", book);
+            PlayerPrefs.SetInt("currentChapter", chapter);
+            PlayerPrefs.SetInt("currentVerse", verse);
+            PlayerPrefs.Save();
         }
 
         public void Load(Reference reference)
         {
             book = reference.book;
             chapter = reference.chapter;
+            verse = reference.verse;
             Load();
         }
+
         public void Load()
         {
             current.Load();

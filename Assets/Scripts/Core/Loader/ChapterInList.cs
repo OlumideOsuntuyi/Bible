@@ -22,6 +22,11 @@ namespace Visuals
             NavigationList.Instance.SelectChapter(index);
         }
 
+        public void SelectVerse()
+        {
+            NavigationList.Instance.SelectVerse(index);
+        }
+
         public (int book, float distance) Compare(Transform center)
         {
             return (index, (transform.position.y - center.position.y));

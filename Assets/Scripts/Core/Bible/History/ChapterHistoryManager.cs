@@ -97,5 +97,6 @@ namespace Core
         public int book;
         public int chapter;
         public int verse;
+        public int verseEnd;
     }
 }

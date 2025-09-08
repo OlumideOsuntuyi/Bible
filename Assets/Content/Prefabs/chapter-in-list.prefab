@@ -206,6 +206,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 3340566281817733759}
   padding: {x: 5, y: 0}
+  min: {x: 0, y: 0}
+  max: {x: 0, y: 0}
   minLength: 0
   fontRatio: 0.65
   mode: 3
@@ -254,7 +256,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4485605896559177757}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 

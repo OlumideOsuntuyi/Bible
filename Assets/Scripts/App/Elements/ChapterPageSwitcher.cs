@@ -75,6 +75,8 @@ namespace Visuals
         private void Update()
         {
             if (NavigationList.IsOpen) return;
+            if (ScreenManager.GetTransition("toolbar").Active is 1) return;
+
 
             float range = Time.deltaTime * speed;
             bool move = false;

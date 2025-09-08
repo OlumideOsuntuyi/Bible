@@ -1,3 +1,6 @@
+using Core.Display;
+using Core.Notes;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,10 +11,12 @@ namespace Core.Module
 {
     public class InsertableVerse : InsertableText, IPointerDownHandler, IPointerUpHandler
     {
-        string pre_mark_text = "";
-        bool held;
-        bool marked;
-        float time = 0;
+        public bool held;
+        public bool marked;
+        public float time = 0;
+        public Reference reference;
+
+        private Verse verse;
 
         public const float HOLD_TIME = 0.5f;
 
@@ -50,19 +55,41 @@ namespace Core.Module
             held = false;
         }
 
+        public void SetVerse(Verse verse)
+        {
+            this.verse = verse;
+
+            string label = ChapterLoader.InsertColor($"({verse.verse})", ThemeManager.Colors[(int)ThemeColorType.VerseLabelColor]);
+            _text.color = Highlighter.Get(reference);
+            label = ChapterLoader.InsertFontSize(label, _text.fontSize * 0.75f);
+
+            if(marked)
+            {
+                text = $"{label} <mark=#{ColorUtility.ToHtmlStringRGB(NoteEditor.GetMarkColor())}>{verse.text}</mark>";
+            }
+            else
+            {
+                text = $"{label} {verse.text}";
+            }
+        }
+
+        public void Reload()
+        {
+            SetVerse(verse);
+        }
+
         public void Mark()
         {
-            pre_mark_text = _text.text;
-            string[] strs = _text.text.Split(')');
-            _text.text = $"{strs[0]})<mark=#{ColorUtility.ToHtmlStringRGBA(ColorPallate.Get("verse-highlight"))}>{strs[1]}</mark>";
             marked = true;
+            Reload();
+            ScreenManager.Transition("toolbar", "highlighter");
         }
 
         public void Unmark()
         {
-            _text.text = pre_mark_text;
-            pre_mark_text = null;
             marked = false;
+            Reload();
+            ScreenManager.Transition("toolbar", "main");
         }
     }
 }

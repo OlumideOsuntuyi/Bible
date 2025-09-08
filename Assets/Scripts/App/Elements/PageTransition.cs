@@ -16,11 +16,13 @@ namespace Visuals
         [SerializeField] private int _active;
         [SerializeField] private float time;
 
+        public int Active => _active;
+
         private void Awake()
         {
             for (int i = 0; i < pages.Count; i++)
             {
-                pages[i].Set(i == active ? 1 : 0);
+                pages[i].Set(i == active ? 1 : 0, i == active);
             }
 
             time = 0;
@@ -30,26 +32,28 @@ namespace Visuals
         {
             if (pages.Count == 0) return;
             if (active == _active) return;
-
-            time += Time.deltaTime;
-            float range = Mathf.Clamp01(time / Mathf.Max(transitionTime, float.Epsilon));
 #if UNITY_EDITOR
-            if(!Application.isPlaying)
+            if (!Application.isPlaying)
             {
                 Instant();
                 return;
             }
-#endif
-            if(range <= 0.5f)
+#endif         
+            time += Time.deltaTime;
+            float range = time / Mathf.Max(transitionTime * 0.5f, float.Epsilon);
+            if (range <= 1)
             {
-                pages[_active].Set(1.0f - (range * 2.0f));
-            }else if(range > 0.5f && range <= 1)
+                pages[_active].Set(1.0f - range, false);
+            }
+            else if(range <= 2)
             {
-                pages[active].Set((range - 0.5f) * 2.0f);
-            }else if (range > 1)
+                range -= 1.0f;
+                pages[active].Set(range, true);
+            }else if (range > 2)
             {
                 _active = active;
                 time = 0;
+                Instant();
             }
         }
 
@@ -72,11 +76,6 @@ namespace Visuals
             {
                 Instant();
                 return;
-            }else if(_active == active)
-            {
-                _active = this.active;
-                this.active = active;
-                return;
             }
 
             this.active = active;
@@ -85,8 +84,8 @@ namespace Visuals
 
         public void Instant()
         {
-            pages[_active].Set(0);
-            pages[active].Set(1);
+            pages[_active].Set(0, false);
+            pages[active].Set(1, true);
             _active = this.active;
 
             time = 0;
@@ -113,7 +112,7 @@ namespace Visuals
 
             public bool activeMatchesRange;
 
-            public void Set(float range)
+            public void Set(float range, bool active)
             {
                 rect.anchorMin = Vector2.Lerp(anchorMinHidden, anchorMinVisible, range);
                 rect.anchorMax = Vector2.Lerp(anchorMaxHidden, anchorMaxVisible, range);
@@ -121,9 +120,11 @@ namespace Visuals
 
                 rect.anchoredPosition = Vector2.Lerp(hiddenPosition, visiblePosition, range);
 
-                if(activeMatchesRange && range is <= 0 or >= 1)
+
+                if (activeMatchesRange)
                 {
-                    rect.gameObject.SetActive(range >= 1);
+                    active = active ? range > 0 : range < 0.02f;
+                    rect.gameObject.SetActive(active);
                 }
             }
         }

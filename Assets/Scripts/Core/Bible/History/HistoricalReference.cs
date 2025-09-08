@@ -17,8 +17,9 @@ namespace Visuals
 
         public void Set(Reference reference)
         {
+            reference.verse = Mathf.Max(1, reference.verse);
             this.reference = reference;
-            var parses = JsonLoader.bible.Parse(reference.book, reference.chapter, 1);
+            var parses = JsonLoader.bible.Parse(reference.book, reference.chapter, Mathf.Max(1, reference.verse));
             header.text = $"{parses}";
             text.text = $"{JsonLoader.bible[reference.book][reference.chapter][Mathf.Max(1, reference.verse)].text}";
 

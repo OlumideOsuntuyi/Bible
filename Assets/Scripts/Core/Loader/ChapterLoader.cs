@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 using Core.Module;
+using Core.Notes;
 
 using Dominion;
 
@@ -19,6 +20,7 @@ namespace Core.Display
 
         public int book;
         public int chapter;
+        public int verse;
 
         public VerticalLayoutGroup insertable;
         public float fontSize;
@@ -26,20 +28,21 @@ namespace Core.Display
         public ScrollView view;
         public Scrollbar verticalScrollBar;
 
-        private List<InsertableVerse> verses;
+        public List<InsertableVerse> verses { get; set; }
 
-        public void Load(bool scroll=false)
+        public void Load()
         {
-            Load(JsonLoader.bible[book][chapter], insertable, verticalScrollBar, scroll);
+            Load(JsonLoader.bible[book][chapter]);
         }
 
         public void Load(int verse)
         {
-            Load(JsonLoader.bible[book][chapter], insertable, verticalScrollBar, true);
+            this.verse = verse;
+            Load(JsonLoader.bible[book][chapter]);
             MarkVerse(verse, true);
         }
 
-        private void Load(Chapter chapter, VerticalLayoutGroup layout, Scrollbar scrollbar, bool scroll=false)
+        private void Load(Chapter chapter)
         {
             verses ??= new List<InsertableVerse>();
             verses.Clear();
@@ -50,26 +53,29 @@ namespace Core.Display
             for (int i = 1; i <= chapter.Count; i++)
             {
                 var verse = chapter[i];
-                string word = verse.text;
 
                 InsertableVerse text = Instantiate(CDM.GetPrefab<InsertableVerse>("verse-text"), insertable.transform);
-                string label = InsertColor($"({verse.verse})", ColorPallate.Get("verse-label-color"));
+                Reference reference = new()
+                {
+                    book = chapter.book,
+                    chapter = chapter.chapter,
+                    verse = i,
+                    verseEnd = i
+                };
+                text.reference = reference;
                 text._text.font = font;
-                text._text.color = ColorPallate.Get("text-color");
-                label = InsertFontSize(label, fontSize * 0.75f);
-                text.text = $"{label} {word}";
                 text.SetFontSize(fontSize);
-
+                text.SetVerse(verse);
                 verses.Add(text);
             }
 
             MakeGap(150f, insertable.transform);
 
-            if(scroll)
-            {
-                scrollbar.value = 1;
-            }
+
+            // scroll
+            verticalScrollBar.value = 1.0f - Mathf.Clamp01((verse * 1.0f) / verses.Count);
         }
+
         void MakeGap(float size, Transform bookContent)
         {
             var gapObj = new GameObject("gap");
@@ -131,6 +137,7 @@ namespace Core.Display
                 chapter = 1;
             }
 
+            verse = 1;
             Load();
         }
 
@@ -150,6 +157,7 @@ namespace Core.Display
                 chapter = JsonLoader.bible[book].Count;
             }
 
+            verse = 1;
             Load();
         }
 

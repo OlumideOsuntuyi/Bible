@@ -1,7 +1,8 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [ExecuteInEditMode]
-public class SumRects : MonoBehaviour
+public class SumRects : UIBehaviour
 {
     public RectTransform target, content;
     public Vector2 init, minimumSize, spacing;
@@ -11,11 +12,11 @@ public class SumRects : MonoBehaviour
     public Padding padding;
     public int delay = 10;
     int frame = 0;
-    bool _update;
+    public bool _update;
     public bool setTargetSizeToContent;
     public bool suppressUpdates;
 
-    private void OnRectTransformDimensionsChange()
+    protected override void OnRectTransformDimensionsChange()
     {
         if (suppressUpdates) return;
         _update = true;

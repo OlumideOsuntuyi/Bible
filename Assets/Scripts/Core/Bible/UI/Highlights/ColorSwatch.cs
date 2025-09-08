@@ -1,4 +1,4 @@
-using Nobi.UiRoundedCorners;
+using Core.Notes;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +7,7 @@ namespace Visuals
 {
     public class ColorSwatch : MonoBehaviour
     {
-        public ImageWithRoundedCorners rc;
+        public int index;
         public Image image;
         public Sprite[] icons;
         public Vector2[] sizes;
@@ -20,7 +20,14 @@ namespace Visuals
 
         public void Select()
         {
+            if(underlineMode)
+            {
 
+            }
+            else
+            {
+                Highlighter.Instance.HighlightedSelectedVerses(index);
+            }
         }
 
         public void ChangeMode(bool state=false)

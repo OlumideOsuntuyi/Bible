@@ -59,6 +59,7 @@ namespace Visuals
             if (!InTransition)
             {
                 _state = state;
+                onValueChanged.Invoke();
                 return;
             }
 

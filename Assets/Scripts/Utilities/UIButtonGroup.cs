@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using TLab.UI.SDF;
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -11,7 +13,7 @@ namespace LostOasis
     [ExecuteInEditMode]
     public class UIButtonGroup : MonoBehaviour
     {
-        public List<Image> buttons;
+        public List<Graphic> buttons;
         public List<GraphicGroup> graphicGroups;
 
         public Color activeColor;
@@ -19,6 +21,7 @@ namespace LostOasis
         public int Current;
 
         public UnityEvent onValueChanged;
+        public UnityEvent<int> onSelected;
 
         private int prev;
 
@@ -38,7 +41,16 @@ namespace LostOasis
             {
                 for (int i = 0; i < buttons.Count; i++)
                 {
-                    buttons[i].color = i == Current ? activeColor : inactiveColor;
+                    var currentColor = i == Current ? activeColor : inactiveColor;
+                    var bar = buttons[i];
+                    if (bar is SDFQuad quad)
+                    {
+                        quad.fillColor = currentColor;
+                    }
+                    else
+                    {
+                        bar.color = currentColor;
+                    }
                 }
             }
 
@@ -48,11 +60,21 @@ namespace LostOasis
                 {
                     foreach (var graphic in graphicGroups[i].graphics)
                     {
-                        graphic.color = i == Current ? activeColor : inactiveColor;
+                        var currentColor = i == Current ? activeColor : inactiveColor;
+                        if (graphic is SDFQuad quad)
+                        {
+                            quad.fillColor = currentColor;
+                        }
+                        else
+                        {
+                            graphic.color = currentColor;
+                        }
                     }
                 }
             }
+
             onValueChanged.Invoke();
+            onSelected.Invoke(Current);
         }
 
         public void Click(Image image)

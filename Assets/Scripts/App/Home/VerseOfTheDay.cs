@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 using Visuals;
 using Visuals.Module;
@@ -10,6 +13,8 @@ namespace Core
     {
         public InsertableText verse;
         public InsertableText text;
+        public Image background;
+        public List<Sprite> sprites;
 
         private int b;
         private int c;

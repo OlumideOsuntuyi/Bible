@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "com.nobi.roundedcorners": "https://github.com/kirevdokimov/Unity-UI-Rounded-Corners.git",
+    "com.tlabaltoh.sdf-ui-toolkit": "https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit#upm",
+    "com.tlabaltoh.sdf-ui-toolkit-urp-blur": "https://github.com/TLabAltoh/Unity-SDF-UI-Toolkit.git?path=/com.tlabaltoh.sdf-ui-toolkit-urp-blur#upm",
     "com.unity.addressables": "2.4.6",
     "com.unity.addressables.android": "1.0.6",
     "com.unity.collab-proxy": "2.8.2",
@@ -15,6 +17,7 @@
     "com.unity.timeline": "1.8.7",
     "com.unity.ugui": "2.0.0",
     "com.unity.visualscripting": "1.9.6",
+    "com.useffarahmand.uscrollsnap": "https://github.com/UModules/UScrollSnap.git",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",

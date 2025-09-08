@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 using Core;
@@ -9,10 +8,9 @@ using LostOasis;
 
 using TMPro;
 
-using Unity.VisualScripting.Antlr3.Runtime;
-
 using UnityEngine;
-using UnityEngine.UI;
+
+using UScrollSnap;
 
 namespace Visuals
 {
@@ -20,21 +18,21 @@ namespace Visuals
     {
         public Transform bookContent;
         public Transform chapterContent;
+        public Transform verseContent;
 
         public Transform bookCenter;
 
-        public ScollerSnapper bookSnapper;
-        public Scrollbar bookScroll;
+        public ScrollSnap bookSnapper;
+        public ScrollSnap chapterSnapper;
+        public ScrollSnap verseSnapper;
 
-        public ScollerSnapper chapterSnapper;
-        public Scrollbar chapterScroll;
-
-        private Action<int> onScrollCallback;
-        private Action<int> onChapterScrollCallback;
         private List<BookInListItem> booksList;
         private List<ChapterInListItem> chapterList;
+        private List<ChapterInListItem> verseList;
+
         public int currentBook;
         public int currentChapter;
+        public int currentVerse;
 
         public NavigationMode navigationMode;
         public SortMode sortMode;
@@ -53,15 +51,10 @@ namespace Visuals
         {
             currentBook = ChapterLoaderManager.Instance.book;
             currentChapter = ChapterLoaderManager.Instance.chapter;
+            currentVerse = ChapterLoaderManager.Instance.verse;
 
             IsOpen = true;
-
-            bookSnapper.compare = CompareBook;
-            chapterSnapper.compare = CompareChapter;
             ListBooks();
-
-            bookScroll.value = GetBookValue(currentBook);
-            chapterScroll.value = GetChapterValue(currentChapter);
 
         }
 
@@ -69,6 +62,7 @@ namespace Visuals
         {
             MegaUtils.ClearChildren(bookContent);
             MegaUtils.ClearChildren(chapterContent);
+            MegaUtils.ClearChildren(verseContent);
 
             IsOpen = false;
         }
@@ -77,6 +71,7 @@ namespace Visuals
         {
             ChapterLoaderManager.Instance.book = currentBook;
             ChapterLoaderManager.Instance.chapter = currentChapter;
+            ChapterLoaderManager.Instance.verse = currentVerse;
             ChapterLoaderManager.Instance.Load();
 
             gameObject.SetActive(false);
@@ -88,62 +83,19 @@ namespace Visuals
             });
         }
 
-        public int GetCurrentBook()
-        {
-            float val = 1.0f - bookScroll.value;
-
-            int start = navigationMode is NavigationMode.ALL or NavigationMode.OT ? 1 : 40;
-            int end = navigationMode is NavigationMode.ALL or NavigationMode.NT ? 66 : 39;
-
-            float multiplier = 10;
-            int bk = Mathf.RoundToInt(Mathf.Lerp(start * multiplier, end * multiplier, val) / multiplier);
-            return bk;
-        }
-
-        public int GetCurrentChapter()
-        {
-            float val = 1.0f - chapterScroll.value;
-
-            int start = 1;
-            int end = JsonLoader.bible[currentBook].Count;
-
-            float multiplier = 10;
-            int ch = Mathf.RoundToInt(Mathf.Lerp(start * multiplier, end * multiplier, val) / multiplier);
-            return ch;
-        }
-
-        public float GetBookValue(int book)
-        {
-            int start = navigationMode is NavigationMode.ALL or NavigationMode.OT ? 1 : 40;
-            float end = navigationMode is NavigationMode.ALL or NavigationMode.NT ? 66 : 39;
-            int count = navigationMode is NavigationMode.ALL ? 66 : navigationMode is NavigationMode.OT ? 39 : 27;
-
-            return Mathf.InverseLerp(1.0f, 0.0f, (book - start) / count);
-        }
-
-        public float GetChapterValue(int chapter)
-        {
-            return Mathf.InverseLerp(1.0f, 0.0f, 1f / JsonLoader.bible[currentBook].Count);
-        }
-
-
         public void SelectBook(int book)
         {
-            return;
-
-            ChapterLoaderManager.Instance.book = book;
-            currentBook = book;
-            ListBooks();
+            bookSnapper.ScrollToItem(book);
         }
 
         public void SelectChapter(int chapter)
         {
-            return;
+            chapterSnapper.ScrollToItem(chapter);
+        }
 
-            ChapterLoaderManager.Instance.chapter = chapter;
-            currentChapter = chapter;
-
-            onChapterScrollCallback.Invoke(currentChapter);
+        public void SelectVerse(int verse)
+        {
+            verseSnapper.ScrollToItem(verse);
         }
 
         public void ListBooks()
@@ -155,8 +107,6 @@ namespace Visuals
             booksList ??= new List<BookInListItem>();
             booksList.Clear();
 
-            onScrollCallback = (int current) => { };
-
             // create initial gap
             MakeGap(initialBookGap, bookContent);
             for (int i = start; i <= end; i++)
@@ -164,7 +114,6 @@ namespace Visuals
                 var book = JsonLoader.bible[i];
                 var clone = Instantiate(CDM.GetPrefab<BookInListItem>("book-in-list"), bookContent);
                 clone.Set(book.Name, book.book);
-                onScrollCallback += clone.OnScroll;
 
                 booksList.Add(clone);
             }
@@ -174,10 +123,11 @@ namespace Visuals
                 // TODO: Add A-Z Book Sorting
             }
 
+            // scroll to first item in list
+            bookSnapper.ScrollToItem(0); // first item is gap, however we are scrolling to gap
+
             MakeGap(finalBookGap, bookContent);
-            ListChapter(); 
-            
-            bookScroll.value = GetBookValue(currentBook);
+            ListChapter();
         }
 
         public void ListChapter()
@@ -189,95 +139,95 @@ namespace Visuals
             chapterList ??= new List<ChapterInListItem>();
             chapterList.Clear();
 
-            onChapterScrollCallback = (int value) => { };
-
             MakeGap(initialBookGap, chapterContent);
             for (int i = 1; i <= chapterCount; i++)
             {
                 var clone = Instantiate(CDM.GetPrefab<ChapterInListItem>("chapter-in-list"), chapterContent);
                 clone.Set(i);
                 chapterList.Add(clone);
-                onChapterScrollCallback += clone.OnScroll;
             }
 
-            onChapterScrollCallback.Invoke(currentChapter);
+            // scroll to first chapter
+            chapterSnapper.ScrollToItem(0); 
 
             MakeGap(finalBookGap, chapterContent);
-            chapterScroll.value = GetChapterValue(currentChapter);
-            SetChapterScrollWheel();
+            ListVerse();
         }
 
-        void MakeGap(float size, Transform bookContent)
+        public void ListVerse()
         {
+            MegaUtils.ClearChildren(verseContent);
+
+            int verseCount = JsonLoader.bible[currentBook][currentChapter].Count;
+            verseList ??= new List<ChapterInListItem>();
+            verseList.Clear();
+
+            MakeGap(initialBookGap, verseContent);
+            for (int i = 1; i <= verseCount; i++)
+            {
+                var clone = Instantiate(CDM.GetPrefab<ChapterInListItem>("verse-in-list"), verseContent);
+                clone.Set(i);
+                verseList.Add(clone);
+            }
+
+            // scroll to first verse
+            verseSnapper.ScrollToItem(0);
+
+            MakeGap(finalBookGap, verseContent);
+        }
+
+        public static void MakeGap(float size, Transform content)
+        {
+            return;
+
             var gapObj = new GameObject("gap");
             var rect = gapObj.AddComponent<RectTransform>();
             rect.pivot = new Vector2(0.5f, 1f);
             rect.anchorMin = new Vector2(0.5f, 1f);
             rect.anchorMax = new Vector2(0.5f, 1f);
-            rect.SetParent(bookContent);
+            rect.SetParent(content);
             rect.localScale = Vector3.up;
             rect.sizeDelta = Vector2.up * size;
+        } 
+        
+        public void SetSelectionLabel()
+        {
+            currentSelectionLabel.text = $"{JsonLoader.bible[currentBook].Name} {currentChapter}:{currentVerse}";
         }
 
-        public void SetScrollWheel()
+        public void ClickedBook(int index)
         {
-            int current = GetCurrentBook();
-            float span = booksList.Count;
-            (int i, float d) min = (-1, float.PositiveInfinity);
-            foreach (var book in booksList)
-            {
-                (int index, float comparison) = book.Compare(bookCenter);
-                float absC = Mathf.Abs(comparison);
-                if(absC < min.d)
-                {
-                    min = (index, absC);
-                }
+            index += 1;
+            if (index == currentBook) return;
+            currentBook = index + 1;
 
-                book.transform.localEulerAngles = new Vector3()
-                {
-                    x = comparison * wheelCurvature
-                };
-            }
+            // reset chapter selection
+            currentChapter = 1;
+            ListChapter();
 
-            if(min.i != currentBook)
-            {
-                currentBook = min.i;
-                currentChapter = 1;
-                ListChapter();
-            }
-
-
-            bookSnapper.snapped = false;
-            currentSelectionLabel.text = $"{JsonLoader.bible[currentBook].Name} {currentChapter}";
+            SetSelectionLabel();
         }
 
-        public void SetChapterScrollWheel()
+        public void ClickedChapter(int index)
         {
-            int current = GetCurrentChapter();
-            float span = chapterList.Count;
-            (int i, float d) min = (-1, float.PositiveInfinity);
-            foreach (var chapter in chapterList)
-            {
-                (int index, float comparison) = chapter.Compare(bookCenter);
-                float absC = Mathf.Abs(comparison);
-                if (absC < min.d)
-                {
-                    min = (index, absC);
-                }
+            index += 1;
+            if (index == currentChapter) return;
+            currentBook = index;
 
-                chapter.transform.localEulerAngles = new Vector3()
-                {
-                    x = comparison * wheelCurvature
-                };
-            }
+            // reset verse selection
+            currentVerse = 1;
+            ListVerse();
 
-            if (min.i != currentChapter)
-            {
-                currentChapter = min.i;
-            }
+            SetSelectionLabel();
+        }
 
-            chapterSnapper.snapped = false;
-            currentSelectionLabel.text = $"{JsonLoader.bible[currentBook].Name} {currentChapter}";
+        public void ClickedVerse(int index)
+        {
+            index += 1;
+            if (index == currentVerse) return;
+            currentVerse = index;
+
+            SetSelectionLabel();
         }
 
         public void SetSortMode(UIButtonGroup button)
@@ -285,32 +235,12 @@ namespace Visuals
             sortMode = (SortMode)button.Current;
             ListBooks();
         }
+
         public void SetNavMode(UIButtonGroup button)
         {
             navigationMode = (NavigationMode)button.Current;
             ListBooks();
         }
-
-        public (int, float) CompareBook(Transform center)
-        {
-            if(booksList.Count == 0)
-            {
-                return (0, 0);
-            }
-
-            int start = navigationMode is NavigationMode.ALL or NavigationMode.OT ? 1 : 40;
-            return booksList[currentBook - start].Compare(center);
-        }
-        public (int, float) CompareChapter(Transform center)
-        {
-            if (chapterList.Count == 0)
-            {
-                return (0, 0);
-            }
-
-            return chapterList[currentChapter - 1].Compare(center);
-        }
-
 
         public enum NavigationMode
         {

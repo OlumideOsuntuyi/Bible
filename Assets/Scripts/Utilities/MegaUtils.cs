@@ -215,6 +215,20 @@ public static class MegaUtils
         };
         return value + number.ToString();
     }
+
+    public static string GenerateRandomWords(int wordCount, int minWordLength, int maxWordLength)
+    {
+        string str = "";
+        for (int i = 0; i < wordCount; i++)
+        {
+            str += GenerateRandomLetters(Random.Next(minWordLength, maxWordLength));
+            str += ' ';
+        }
+
+        str = str.FirstUpper();
+        return str;
+    }
+
     public static string GenerateRandomString(int length)
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -222,7 +236,7 @@ public static class MegaUtils
 
         for (int i = 0; i < length; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(0, chars.Length - 1);
+            int randomIndex = Random.Next(0, chars.Length - 1);
             sb.Append(chars[randomIndex]);
         }
 
@@ -245,7 +259,7 @@ public static class MegaUtils
 
     public static string GenerateRandomLetters(int length)
     {
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        const string chars = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder(length);
 
         for (int i = 0; i < length; i++)
@@ -253,9 +267,8 @@ public static class MegaUtils
             int randomIndex = UnityEngine.Random.Range(0, chars.Length - 1);
             sb.Append(chars[randomIndex]);
         }
+
         string text = sb.ToString();
-        text.ToLower();
-        //text.FirstCharacterToUpper();
         return text;
     }
     public static TMP_Text SetTextSize(TMP_Text text, float minSize, float maxSize, int minLength, int maxLength)
