@@ -1,3 +1,5 @@
+using TLab.UI.SDF;
+
 using TMPro;
 
 using UnityEngine;
@@ -10,7 +12,7 @@ namespace Core.Plans
     public class CalendarDay : MonoBehaviour
     {
         public TMP_Text day;
-        public Image background;
+        public Graphic background;
 
         private int _day;
 
@@ -31,7 +33,15 @@ namespace Core.Plans
         public void OnUpdate()
         {
             bool highlight = _day == Calendar.Instance.today || _day == Calendar.Instance.active;
-            background.color = ColorPallate.Get(_day == Calendar.Instance.active ? "active" : "clear");
+
+            if(background is SDFQuad quad)
+            {
+                quad.fillColor = ColorPallate.Get(_day == Calendar.Instance.active ? "active" : "clear");
+            }
+            else
+            {
+                background.color = ColorPallate.Get(_day == Calendar.Instance.active ? "active" : "clear");
+            }
             day.color = ColorPallate.Get(highlight ? "text-color" : "text-color");
 
             if(_day == Calendar.Instance.today && _day != Calendar.Instance.active)

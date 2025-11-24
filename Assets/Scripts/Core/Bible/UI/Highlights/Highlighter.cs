@@ -67,6 +67,7 @@ namespace Core.Notes
                     if (swatch < 0)
                     {
                         highlights.Remove(v.reference);
+                        v.Reload();
                         return;
                     }
 

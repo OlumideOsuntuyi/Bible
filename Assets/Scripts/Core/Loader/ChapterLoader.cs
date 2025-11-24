@@ -12,6 +12,8 @@ using UnityEngine.UIElements;
 using Visuals;
 using Visuals.Module;
 
+using Voxel;
+
 namespace Core.Display
 {
     public class ChapterLoader : MonoBehaviour
@@ -74,6 +76,11 @@ namespace Core.Display
 
             // scroll
             verticalScrollBar.value = 1.0f - Mathf.Clamp01((verse * 1.0f) / verses.Count);
+
+            ThreadsManager.QueueFutureAction(() =>
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)insertable.transform);  
+            }, 0.05f);
         }
 
         void MakeGap(float size, Transform bookContent)

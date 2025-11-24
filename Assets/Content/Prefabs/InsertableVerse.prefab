@@ -146,6 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4824031843596856065}
   - component: {fileID: 6807361679227972438}
+  - component: {fileID: 7205909893975787374}
   m_Layer: 0
   m_Name: InsertableVerse
   m_TagString: Untagged
@@ -192,3 +193,37 @@ MonoBehaviour:
   minLength: 0
   fontRatio: 0.65
   mode: 2
+  held: 0
+  marked: 0
+  time: 0
+  reference:
+    book: 0
+    chapter: 0
+    verse: 0
+    verseEnd: 0
+--- !u!114 &7205909893975787374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5966386783569441471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0

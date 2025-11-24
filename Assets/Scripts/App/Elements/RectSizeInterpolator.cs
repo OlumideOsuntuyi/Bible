@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Visuals
 {
@@ -10,6 +11,14 @@ namespace Visuals
         public Vector2 max;
         public float duration;
         public bool on;
+
+        [Header("Events")]
+        public UnityEvent OnToggle;
+        public UnityEvent OnExtend;
+        public UnityEvent OnExtendCompleted;
+        public UnityEvent OnRetract;
+        public UnityEvent OnRetractCompleted;
+        public UnityEvent<float> OnRange;
 
 
         [Header("Debug")]
@@ -25,25 +34,37 @@ namespace Visuals
                 r = 1.0f - r;
             }
 
+            OnRange.Invoke(r);
+
             rect.sizeDelta = Vector2.Lerp(min, max, r);
+
+            if(_time > duration) // on completed
+            {
+                if (on) OnExtendCompleted.Invoke();
+                else OnRetractCompleted.Invoke();
+            }
         }
 
         public void On()
         {
             on = true;
             _time = 0;
+            OnExtend.Invoke();
         }
 
         public void Off()
         {
             on = false;
             _time = 0;
+            OnRetract.Invoke();
         }
 
         public void Toggle()
         {
             on = !on;
             _time = 0;
+
+            OnToggle.Invoke();
         }
     }
 }

@@ -16,19 +16,23 @@ public class ScreenControl : MonoBehaviour
     public List<Screen> boxes = new();
     public List<Overlays> overlays;
     public bool sendBox, changeParentIndex, checkOverlays;
-    /*[InspectorLabel("sendBox")]*/ public ScreenControl parent = null;
-    /*[InspectorLabel("sendBox")]*/ public int parentIndex = 0;
+    /*[InspectorLabel("sendBox")]*/
+    public ScreenControl parent = null;
+    /*[InspectorLabel("sendBox")]*/
+    public int parentIndex = 0;
 
     public bool swipe;
-    /*[InspectorLabel("swipe")]*/ public bool horizontal;
-    /*[InspectorLabel("swipe")]*/ public float swipeDistance = 100, swipeCooldown = 1f;
+    /*[InspectorLabel("swipe")]*/
+    public bool horizontal;
+    /*[InspectorLabel("swipe")]*/
+    public float swipeDistance = 100, swipeCooldown = 1f;
     public RectTransform swipeRect;
     [SerializeField] private bool runInEdit = false;
     [SerializeField] private bool invokeInEditMode = false;
     public UnityEvent onValueChanged;
     private void Start()
     {
-        if(Application.isPlaying || runInEdit)
+        if (Application.isPlaying || runInEdit)
         {
             remove_all_boxes = false;
             CheckBoxState();
@@ -38,9 +42,10 @@ public class ScreenControl : MonoBehaviour
             }
         }
     }
+
     private void LateUpdate()
     {
-        if(Application.isPlaying || runInEdit)
+        if (Application.isPlaying || runInEdit)
         {
             if (active_box != previous_active_box)
             {
@@ -48,6 +53,7 @@ public class ScreenControl : MonoBehaviour
                 {
                     CheckOverlays();
                 }
+
                 Activate(active_box);
                 previous_active_box = active_box;
                 if (sendBox && (Application.isPlaying || invokeInEditMode))
@@ -59,15 +65,17 @@ public class ScreenControl : MonoBehaviour
             CheckBoxState();
         }
     }
+
     public string GetBoxID()
     {
         return boxes[active_box].id;
     }
+
     public void CheckOverlays()
     {
         if (checkOverlays && overlays != null && overlays.Count > 0)
         {
-            foreach(var overlay in overlays)
+            foreach (var overlay in overlays)
             {
                 for (int i = 0; i < overlay.content.Count; i++)
                 {
@@ -110,10 +118,11 @@ public class ScreenControl : MonoBehaviour
     public void Move(int index)
     {
         active_box += index;
-        if(active_box == boxes.Count)
+        if (active_box == boxes.Count)
         {
             active_box = 0;
-        }else if(active_box < 0)
+        }
+        else if (active_box < 0)
         {
             active_box = boxes.Count - 1;
         }
@@ -142,23 +151,18 @@ public class ScreenControl : MonoBehaviour
             box.closed = box.rect.localScale == Vector3.zero;
             box.is_playing = box.rect.localScale != Vector3.zero && box.rect.localScale != Vector3.one;
         }
-        else if (box.mode == DeactivateMode.Swipe)
-        {
-            box.closed = box.rect.localPosition == box.finalPosition;
-            box.is_playing = box.rect.localPosition != Vector3.zero && box.rect.localPosition != box.finalPosition;
-        }
         else if (box.mode == DeactivateMode.Disable)
         {
-            box.closed = !box.rect.gameObject.activeInHierarchy;
+            box.closed = !box.rect.gameObject.activeSelf;
         }
-        boxes[i] = box;
     }
 
     private void Activate(int index)
     {
         onValueChanged.Invoke();
-        _ = StartCoroutine(AnimateSpecificBox(boxes[index], index, boxes[index].mode, boxes[index].animationTime));
+        _ = ScreenManager.Instance.StartCoroutine(AnimateSpecificBox(boxes[index], index, boxes[index].mode, boxes[index].animationTime));
     }
+
     public void SetZeroIfSame(int index)
     {
         if (index == active_box)
@@ -197,27 +201,47 @@ public class ScreenControl : MonoBehaviour
         float animationTime = 0;
         if (activate)
         {
+
             if (box.sendID && (Application.isPlaying || invokeInEditMode))
             {
                 ScreenManager.Instance.activeScreenID = box.id;
-                if(box.onStart is not null && (Application.isPlaying || invokeInEditMode))
+                if (box.onStart is not null && (Application.isPlaying || invokeInEditMode))
                 {
                     box.onStart.Invoke();
                 }
+            }
+
+            // if swiping on opening screen
+            // move to pre open position
+            // activate screen
+            if (box.mode is DeactivateMode.Swipe)
+            {
+                box.rect.anchoredPosition = box.openPosition;
+                box.rect.gameObject.SetActive(true);
             }
         }
         else
         {
             if (box.sendID)
             {
-                if(box.onExit is not null && (Application.isPlaying || invokeInEditMode))
+                if (box.onExit is not null && (Application.isPlaying || invokeInEditMode))
                 {
                     box.onExit.Invoke();
                 }
             }
+
+
+            // if swiping on closing screen
+            // keep at open position
+            // activate screen
+            if (box.mode is DeactivateMode.Swipe)
+            {
+                box.rect.anchoredPosition = box.onOpenPosition;
+                box.rect.gameObject.SetActive(true);
+            }
         }
 
-        if(mode != DeactivateMode.Disable)
+        if (mode != DeactivateMode.Disable)
         {
             for (int i = 0; i < 2; i++)
             {
@@ -227,7 +251,7 @@ public class ScreenControl : MonoBehaviour
 
         if (mode == DeactivateMode.Disable)
         {
-            if(box.animationTime != 0)
+            if (box.animationTime != 0)
             {
                 for (int i = 0; i < 1; i++)
                 {
@@ -237,17 +261,18 @@ public class ScreenControl : MonoBehaviour
             box.rect.gameObject.SetActive(activate);
             box.is_completed = true;
         }
-        else
-        {
-            if (activate && mode != DeactivateMode.Swipe)
-            {
-                box.rect.gameObject.SetActive(activate);
-            }
-        }
+
         while (!box.is_completed)
         {
             animationTime += Time.deltaTime;
             float range = Mathf.Clamp01(animationTime / time);
+            float trueRange = range;
+            if (!Application.isPlaying)
+            {
+                range = 1;
+                trueRange = 1;
+            }
+
             if (!activate) { range = 1 - range; }
             if (mode == DeactivateMode.Zoom)
             {
@@ -255,7 +280,16 @@ public class ScreenControl : MonoBehaviour
             }
             else if (mode == DeactivateMode.Swipe)
             {
-                box.rect.localPosition = Vector3.Lerp(box.finalPosition, Vector3.zero, range);
+                if (activate)
+                {
+                    // lerp from pre open position to open position
+                    box.rect.anchoredPosition = Vector3.Lerp(box.openPosition, box.onOpenPosition, trueRange);
+                }
+                else
+                {
+                    // lerp from open position to close position
+                    box.rect.anchoredPosition = Vector3.Lerp(box.onOpenPosition, box.closePosition, trueRange);
+                }
             }
             else if (mode == DeactivateMode.Deactivate)
             {
@@ -272,7 +306,7 @@ public class ScreenControl : MonoBehaviour
                 }
                 else if (box.mode == DeactivateMode.Swipe)
                 {
-                    box.is_completed = box.rect.localPosition == Vector3.zero;
+                    box.is_completed = trueRange >= 1.0f;
                 }
             }
             else
@@ -283,9 +317,10 @@ public class ScreenControl : MonoBehaviour
                 }
                 else if (box.mode == DeactivateMode.Swipe)
                 {
-                    box.is_completed = box.rect.localPosition == box.finalPosition;
+                    box.is_completed = trueRange >= 1.0f;
                 }
             }
+
             yield return new WaitForEndOfFrame();
         }
         if (activate)
@@ -295,10 +330,14 @@ public class ScreenControl : MonoBehaviour
                 ScreenManager.Instance.activeScreenID = box.id;
             }
         }
-        if (!activate && mode != DeactivateMode.Swipe)
+
+        // if closing and swiping
+        // deactivate gameobject on animation over
+        if (!activate && mode is DeactivateMode.Swipe)
         {
-            box.rect.gameObject.SetActive(activate);
+            box.rect.gameObject.SetActive(false);
         }
+
         yield break;
     }
 
@@ -310,7 +349,9 @@ public class ScreenControl : MonoBehaviour
         public RectTransform rect;
         public float animationTime, closeTime;
         public DeactivateMode mode;
-        public Vector3 finalPosition;
+        public Vector3 openPosition;
+        public Vector3 onOpenPosition;
+        public Vector3 closePosition;
         public bool sendID;
         public UnityEvent onStart, onExit;
         public bool closed;

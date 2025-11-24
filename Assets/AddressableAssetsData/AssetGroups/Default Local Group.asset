@@ -20,26 +20,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0268364d2c64f704db68f88f9608dc58
-    m_Address: bibles/ES-Spanish/rvg_2004
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 036ae67b725eb794aa5e57c6c981ca62
-    m_Address: bibles/NE-Nepali/ne_ulb
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 05024b43318b4e34da535459388606a5
-    m_Address: Assets/EN-English/geneva.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 06e56041e7e3ba940ab358064307e276
-    m_Address: bibles/FR-French/segond_1910
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0fe0544bf241ecc4391c549a3ad53898
     m_Address: bibles/BO-Tibetan/bo_ntb
     m_ReadOnly: 0
@@ -55,33 +35,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 137fc79dc3def9942ba44ae1206ede32
-    m_Address: bibles/AF-Afrikaans/afri
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1697328b42bea6544a4ba340fb67a9d1
-    m_Address: bibles/FR-French/oster
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1c00d8103b30ebd4190c75d930df2726
-    m_Address: bibles/FA-Persian/opt
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 208897d3eec537640abe5d834abb70fd
-    m_Address: bibles/DE-German/luther_1912
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 28c0b288a4dc5744c9342ff7e2b3ec27
     m_Address: bibles/TG-Tajik/tg_tgk
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2fcc0306054e6c34c8ac7b18a1123e48
-    m_Address: bibles/ZH-Chinese/chinese_union_trad_s
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -90,43 +45,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 33621aa0ca3d1aa49ba36c7c1b97675e
-    m_Address: bibles/PL-Polish/polbg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 34163cf26a669e24aac460d74535f959
-    m_Address: bibles/EN-English/tyndale
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3457941883eea46419e1aea08f324006
-    m_Address: bibles/FI-Finnish/finn
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 34cdb55dc84f342439be8831b70f8820
-    m_Address: bibles/ZH-Chinese/ckjv_sds
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 401e710b88a12b34591c414cccba5452
     m_Address: bibles/ID-Indonesian/indo_tb
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 41216f6e92e82f14a92c45a1059b5e47
-    m_Address: Assets/EN-English/bishops.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 463344f2b952a364c81f7c1b9ef9c988
-    m_Address: Assets/EN-English/net.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 467bbc8e1966ed24b9a970960a85d39f
-    m_Address: bibles/HA-Hausa/ha_con
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -145,58 +65,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4d3a59e01b0b1d14c83747fe5241d42f
-    m_Address: Assets/EN-English/asvs.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 51b0db1ccbb5f0348bb9acbacaaf0941
-    m_Address: bibles/EN-English/asvs
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 52e3378e19e35c24b8ddb04947bef570
-    m_Address: bibles/ES-Spanish/rv_1909
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 553158887103a254cbd514f67e2292ef
-    m_Address: bibles/FR-French/epee
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5811d3ef6e8c6b943af87bbe85397c33
     m_Address: bibles/KN-Kannada/kn_kjv
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 583be443a5874bc4381e9502058842f4
-    m_Address: bibles/HI-Hindi/irv
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 58623b9ca8cb281498e740f45693208c
-    m_Address: bibles/ZH-Chinese/ckjv_sdt
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5e387fac5383f8646bde2d5e45674b7e
-    m_Address: bibles/EN-English/asv
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 64fa6f73738ecd141acbc80a396d1ad2
-    m_Address: bibles/PL-Polish/pol_nbg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 670a8a4a56aef7c42b76087fa17e8613
-    m_Address: bibles/ZH-Chinese/chinese_union_simp_s
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6a3dae03673322340b8a1ef62c839470
-    m_Address: bibles/DE-German/elberfelder_1905
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -205,53 +75,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6cecb22d0b46ae34989c6724af38eac2
-    m_Address: Assets/EN-English/web.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d7461b98f5302e49b60b7cbe0935848
-    m_Address: Assets/EN-English/asv.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6e4c7d12ccaa719418f4d1b4dcd8ba70
-    m_Address: bibles/PL-Polish/pol_ubg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6efe337584ff68d4b8feb08be2789bc0
-    m_Address: bibles/GRC-Greek/tr
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 71a8f8c56e55bf14c9e7836e31208639
     m_Address: bibles/JV-Javanese/jv_jvn
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7570a82bb485abc48a09e504ce193126
-    m_Address: bibles/EN-English/net
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 757275d35925f38439f3aa96e65cea13
-    m_Address: Assets/EN-English/coverdale.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 759a87967da17804db5715991f58fed7
     m_Address: bibles/JA-Japanese/kougo
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 764cae0e502c7b74797f1856542481d8
-    m_Address: bibles/DE-German/luther
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7947c5606bd630d4db2f375b066c94c3
-    m_Address: bibles/FR-French/martin
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -270,48 +100,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 82012106e6e211549acb521cddd37fdb
-    m_Address: bibles/EN-English/bishops
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 871b646bcdfaf404b874126854d278c6
-    m_Address: bibles/UR-Urdu/ur_geo
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 87a7f2543c7b74b42872083c801622b0
-    m_Address: bibles/VI-Vietnamese/cadman
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 882572a313d499b4797961a987e0d91a
     m_Address: bibles/RU-Russian/synodal
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ca706e656ce31f44869f01cdd414196
-    m_Address: bibles/EN-English/geneva
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8ea4113dc66642f4caf7767d449ca4e3
-    m_Address: bibles/EN-English/kjv_strongs
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9074af70bcc881f41b45fe7d3eab6e4b
-    m_Address: bibles/KO-Korean/korean
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 92feaf9f709353b4e8939bfe13881446
-    m_Address: bibles/UG-Uighur,_Uyghur/ug_ara
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 98ffeaaff2fbce3488467d54c00398e1
-    m_Address: bibles/DE-German/schlachter
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -320,28 +110,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a0864f8f21771c6428fd32d888e442d6
-    m_Address: bibles/TR-Turkish/turkish
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a2a13eee110f39245bd2185b54ed9dee
     m_Address: bibles/HE-Hebrew/wlc
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a3a0c6dff5b71614eb00fb613bfae3fe
-    m_Address: bibles/HA-Hausa/ha_lit
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a540d13d9713e81458cdeef0c9afdede
     m_Address: bibles/TA-Tamil/ta_irv
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a68babc6bcbeac0428b0538338a14603
-    m_Address: bibles/ZH-Chinese/chinese_union_simp
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -352,16 +127,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a7df80b7fcd430c4caba0536e4489a1b
     m_Address: bibles/SO-Somali/so_jimale
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a870643119363084fb9de60f3dd3418d
-    m_Address: bibles/WO-Wolof/wo_wol_nt_2010
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: aaf300c8b7d114c4f9734efa6658c77d
-    m_Address: bibles/NL-Dutch/stve
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -385,28 +150,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b5cd5b700934a9d4d82798a095a06bfc
-    m_Address: bibles/GU-Gujarati/gu_irv
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b6201b685aa2f4a45a2eaaaba52d8b50
     m_Address: bibles/RO-Romanian/cornilescu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c120168031f869442a2f043379625185
-    m_Address: bibles/EN-English/coverdale
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c1541b73b1982b145b2652be7a1e4f77
     m_Address: bibles/CS-Czech/bkr
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c45abc3bfe9b93e4fae82c4fdd275e3a
-    m_Address: bibles/WO-Wolof/wo_kyg
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -430,53 +180,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d12bc9d822a956b41a047162e9fdbcae
-    m_Address: bibles/DE-German/elberfelder_1871
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d193e42789da8a446aeb7a7268b9bad7
-    m_Address: bibles/ZH-Chinese/chinese_union_trad
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d2603a7f521ad1d43b5c9ad73a653f72
-    m_Address: Assets/EN-English/kjv_strongs.json
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d4fb99321d2b7bb4e858d4a89f1f1794
-    m_Address: bibles/ES-Spanish/rvg
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d998835a9ba3cca488eebf8968de5ed3
-    m_Address: bibles/EN-English/web
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e14c37c72b87fd8439217ef7ae3909b9
     m_Address: bibles/SW-Swahili/swahili
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e1f9f894c4dc8ee478fdbc84125fd1e7
-    m_Address: bibles/ES-Spanish/sagradas
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e76db8acbd374e84bbbe6d5a059ba057
     m_Address: bibles/MR-Marathi/mr_irv
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec4b0e70b029b2746b158d78837affe2
-    m_Address: bibles/ES-Spanish/rv_1858
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ee072a87796acb34fb461b9e1dc887fc
-    m_Address: bibles/ES-Spanish/rv_1909_strongs
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -500,18 +210,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fe84e30d117056d408988187b8c1eaec
-    m_Address: bibles/GRC-Greek/trparsed
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ff9b73600d46a4f489c37bce8c3bd362
     m_Address: bibles/PT-Portuguese/almeida_rc
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ffeda60b50f69de45a003c9ab64b8019
-    m_Address: Assets/EN-English/tyndale.json
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

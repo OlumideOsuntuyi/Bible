@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Visuals
 {
@@ -38,8 +39,7 @@ namespace Visuals
                 Instant();
                 return;
             }
-#endif         
-            time += Time.deltaTime;
+#endif      
             float range = time / Mathf.Max(transitionTime * 0.5f, float.Epsilon);
             if (range <= 1)
             {
@@ -51,10 +51,10 @@ namespace Visuals
                 pages[active].Set(range, true);
             }else if (range > 2)
             {
-                _active = active;
-                time = 0;
                 Instant();
             }
+
+            time += Time.deltaTime;
         }
 
         public void SetActive(string name)
@@ -112,6 +112,9 @@ namespace Visuals
 
             public bool activeMatchesRange;
 
+            public UnityEvent onOpenInvoke;
+            public UnityEvent onCloseInvoke;
+
             public void Set(float range, bool active)
             {
                 rect.anchorMin = Vector2.Lerp(anchorMinHidden, anchorMinVisible, range);
@@ -125,6 +128,15 @@ namespace Visuals
                 {
                     active = active ? range > 0 : range < 0.02f;
                     rect.gameObject.SetActive(active);
+                }
+
+                if(range >= 1)
+                {
+                    onOpenInvoke.Invoke();
+                }
+                else if(range <= 0)
+                {
+                    onCloseInvoke.Invoke();
                 }
             }
         }
